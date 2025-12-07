@@ -31,7 +31,9 @@ ai_tutor/
 # Инструкция по сборке и запуску AI-Tutor (RAG + Local LLM)
 
 ## 1. Установка и подготовка окружения
-
+```commandline
+Python 3.11.9
+```
 ### 1.1. Создать виртуальное окружение
 
 **Windows PowerShell:**
