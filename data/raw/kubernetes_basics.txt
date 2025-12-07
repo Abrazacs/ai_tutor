@@ -1,0 +1,37 @@
+Kubernetes — система оркестрации контейнеров.
+
+Ключевые объекты:
+
+Pod — минимальная единица развертывания, может содержать 1+ контейнеров.
+Deployment — контроллер, который управляет количеством Pod и обновлениями.
+Service — сетевой доступ к Pod (ClusterIP, NodePort, LoadBalancer).
+ConfigMap — хранение конфигураций (не секретных).
+Secret — хранение чувствительных данных (ключи, пароли).
+Ingress — правила маршрутизации HTTP-трафика.
+
+Основные команды kubectl:
+- kubectl get pods
+- kubectl describe pod <имя>
+- kubectl logs <pod>
+- kubectl apply -f файл.yaml
+- kubectl delete -f файл.yaml
+
+Пример Deployment:
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: app
+        image: nginx
