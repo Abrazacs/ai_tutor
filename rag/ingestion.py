@@ -44,9 +44,7 @@ def build_index():
         return
 
     emb = embed_texts(texts)
-    # chroma сама посчитает эмбеддинги, но мы храним отдельно? здесь проще передать документы, а эмбеддинги х1.
-    # для компактности: не передаём emb, Chroma считает сама → embed_texts не нужен? оставим как задел.
-    add_documents(doc_ids, texts, metas)
+    add_documents(doc_ids, texts, metas, emb) # передали эмбеддинги в базу
     print(f"Indexed {len(texts)} chunks.")
 
 
