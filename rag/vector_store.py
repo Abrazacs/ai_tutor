@@ -9,10 +9,22 @@ _COLLECTION_NAME = "tutor_docs"
 def get_collection():
     return _client.get_or_create_collection(_COLLECTION_NAME)
 
+#Этот вариант add_documents делает одну  вещь: сохраняет векторные представления документов, 
+#которые заранее посчитали, вместо того чтобы позволять векторному хранилищу считать самостоятельно
 
-def add_documents(doc_ids: list[str], texts: list[str], metadatas: list[dict]):
+def add_documents(
+    doc_ids: list[str],
+    texts: list[str],
+    metadatas: list[dict],
+    embeddings: list[list[float]],
+):
     col = get_collection()
-    col.add(ids=doc_ids, documents=texts, metadatas=metadatas)
+    col.add(
+        ids=doc_ids,
+        documents=texts,
+        metadatas=metadatas,
+        embeddings=embeddings,
+    )
 
 
 def search(query_embedding: list[float], top_k: int = 5):
