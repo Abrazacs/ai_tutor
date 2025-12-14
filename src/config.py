@@ -3,7 +3,7 @@ from typing import Optional
 
 class Settings(BaseSettings):
     # API Keys
-    gigachat_credentials: str = "MDE5YjE2ODQtMTUwNi03NzBlLWFjZGEtM2QzZWY4OGUxOTQ3OjVkNTViYTBjLWZkMGEtNDk1Zi1hMzNmLTk2N2FhZWFiN2RkMg=="
+    gigachat_credentials: str = YOUR_GIGACHAT_API_KEY
     gigachat_scope: str = "GIGACHAT_API_PERS"
     gigachat_verify_ssl: bool = False
 
@@ -29,7 +29,7 @@ class Settings(BaseSettings):
     top_k: int = 5
     similarity_threshold: float = 0.5
 
-    telegram_bot_token: str = "8438406219:AAHkc1jw9eqgeluR-UhV8izWPTEQZlX8jY0"
+    telegram_bot_token: str = "YOUR_TELEGRAM_BOT_TOKEN"
     max_message_length: int = 4000
     server_url: str = "http://localhost:8000"
 
