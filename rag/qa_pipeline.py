@@ -11,14 +11,11 @@ def build_prompt(question: str, context_chunks: list[dict]) -> str:
         f"[Источник: {c['meta'].get('source_file', 'unknown')} #{c['meta'].get('chunk_id')}] {c['text']}"
         for c in context_chunks
     )
-    sources = "\n".join(
-        f"- {c['meta'].get('source_file', 'unknown')} (chunk {c['meta'].get('chunk_id')})"
-        for c in context_chunks
-    )
+    
     prompt = f"""
 Ты выступаешь как AI-репетитор по техническим дисциплинам.
 Отвечай понятно и структурированно, с примерами.
-Обязательно ссылайся на источники в конце ответа.
+Список источников будет добавлен автоматически, не добавляй его
 
 Вопрос студента:
 {question}
@@ -29,10 +26,7 @@ def build_prompt(question: str, context_chunks: list[dict]) -> str:
 Формат ответа:
 1) Пошаговое объяснение.
 2) Краткое резюме.
-3) Список использованных источников (по формату: название файла + номер чанка).
 
-Список источников:
-{sources}
 """
     return prompt.strip()
 

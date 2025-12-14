@@ -1,11 +1,35 @@
 from telegram import Update
 from telegram.ext import ContextTypes
+from telegram.constants import ParseMode
 
 from rag.qa_pipeline import answer_question
 from rag.question_gen import generate_questions
 from rag.recommender import recommend_resources
 from .state import get_state
 
+# Добавили красивый вывод в телеграмме
+def to_telegram_markdown(text: str) -> str:
+    lines = text.splitlines()
+    out_lines = []
+
+    for line in lines:
+        stripped = line.lstrip()
+        # "#### ..." → жирный
+        if stripped.startswith("#### "):
+            title = stripped[5:].strip()
+            out_lines.append(f"*{title}*")
+        # "### ..." → жирный
+        elif stripped.startswith("### "):
+            title = stripped[4:].strip()
+            out_lines.append(f"*{title}*")
+        # "## ..." → жирный
+        elif stripped.startswith("## "):
+            title = stripped[3:].strip()
+            out_lines.append(f"*{title}*")
+        else:
+            out_lines.append(line)
+
+    return "\n".join(out_lines)
 
 async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
@@ -56,11 +80,17 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     state.last_topic = text
 
     answer, sources = answer_question(text)
+# добавили список источников (также красивый вывод)
     if sources:
         src_text = "\n".join(
-            f"- {s['meta'].get('source_file', 'unknown')} (chunk {s['meta'].get('chunk_id')})"
+            f"- `{s['meta'].get('source_file', 'unknown')}` (chunk {s['meta'].get('chunk_id')})"
             for s in sources
         )
         answer += "\n\nИсточники:\n" + src_text
 
-    await update.message.reply_text(answer)
+    formatted = to_telegram_markdown(answer)
+
+    await update.message.reply_text(
+        formatted,
+        parse_mode=ParseMode.MARKDOWN,
+    )
