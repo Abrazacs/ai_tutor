@@ -99,6 +99,8 @@ curl -X POST "http://localhost:8000/documents/upload" \
 # Загрузка всех файлов из директории
 curl -X POST "http://localhost:8000/documents/upload-directory?directory_path=/path/to/documents"
 ```
+<img width="1317" height="741" alt="image" src="https://github.com/user-attachments/assets/ce4fcb18-259a-46bd-aa6d-6f24a4392907" />
+
 
 ### 2. Задавание вопросов
 
@@ -112,6 +114,12 @@ curl -X POST "http://localhost:8000/query" \
     "top_k": 5
   }'
 ```
+Запрос:
+<img width="1350" height="422" alt="image" src="https://github.com/user-attachments/assets/dee6f07b-9f01-4aad-8447-944b1b286142" />
+
+Ответ:
+<img width="1304" height="637" alt="image" src="https://github.com/user-attachments/assets/c8771e73-f9ce-460b-aead-7e7598737ed4" />
+
 
 #### Через Telegram
 
